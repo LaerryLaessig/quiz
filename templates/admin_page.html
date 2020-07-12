@@ -1,0 +1,74 @@
+{% extends "bootstrap/base.html" %}
+{% block styles %}
+{{super()}}
+<link rel="stylesheet"
+      href="{{url_for('.static', filename='custom_style.css')}}">
+{% endblock %}
+{% block metas %}
+{{super()}}
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+{% endblock %}
+{% block title %}Quiz{% endblock %}
+{% block content %}
+<div class="jumbotron text-center">
+    <h3>Data</h3>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm">
+                {% if show_wordcloud == 'True' %}
+                <a href="{{ url_for('static', filename='images/wordcloud.png') }}">
+                    <img class="img-thumbnail rounded float-left" src="{{ url_for('static', filename='images/wordcloud.png') }}" alt="Wordcloud" width="200" height="200">
+                </a>
+                {% endif %}
+            </div>
+            <div class="col-sm form-group">
+                <form action="/wordcloud" method="GET">
+                        <input class="btn btn-primary" type="submit" value="generate Wordcloud">
+                </form>
+            </div>
+        </div>
+    </div>
+    <div>
+    <h3>Quiz Editor</h3>
+            <form class="form-inline" action="/question" method="POST">
+               <div class="form-group">
+                   <label>Question</label>
+                    <input class="form-control" name="question">
+                   <label>Answer</label>
+                    <input class="form-control" name="answer">
+                    <input class="btn btn-primary" type="submit" value="save">
+                    </div>
+            </form>
+    </div>
+        <br>
+    <div>
+            <table class="table text-left">
+                <tr>
+                    <th scope="col" width="5%">id</th>
+                    <th scope="col" width="45%">question</th>
+                    <th scope="col" width="45%">answer</th>
+                    <th scope="col" width="5%">action</th>
+                </tr>
+                {% for question in questions %}
+                <tr>
+                    <th scope="row">{{question.id}}</th>
+                    <td>{{question.text}}</td>
+                    <td>{{question.answer}}</td>
+                    <td>
+                         <form action="/question/{{question.id}}/delete" method="POST">
+                             <input class="btn btn-primary" type="submit" value="remove">
+                         </form>
+                     </td>
+                </tr>
+                {% endfor %}
+            </table>
+    </div>
+        <div class="form-group">
+                <form action="/users/delete" method="POST">
+                    <input class="btn btn-primary" type="submit" value="remove all user data">
+                </form>
+        </div>
+</div>
+{% endblock %}

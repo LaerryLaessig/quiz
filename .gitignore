@@ -1,0 +1,12 @@
+# ignore virtual env
+/venv/
+
+# ignore ide fies
+/.idea/
+
+# ignore mac files
+.DS_Store
+
+# ignore file extentions
+*.db
+*.zip
