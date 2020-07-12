@@ -4,7 +4,9 @@ Answers will checked with Event-Sourcing.
 
 ##environment variables
 - USER_ADMIN
+    - change in start.sh or in environment variable
 - PWD_ADMIN 
+    - change in start.sh or in environment variable
 
 ##UI-Endpoints
 ###'/'
