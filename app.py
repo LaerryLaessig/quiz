@@ -12,6 +12,8 @@ from sqlalchemy import asc
 from waitress import serve
 from wordcloud import WordCloud
 
+from Forms import AnswerForm, NamingForm, AddQuestionForm
+
 USER_ADMIN = os.getenv('USER_ADMIN')
 PWD_ADMIN = os.getenv('PWD_ADMIN')
 
@@ -24,6 +26,7 @@ auth = HTTPBasicAuth()
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///quiz.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['IMAGE_FOLDER'] = IMAGE_FOLDER
+app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
 db = SQLAlchemy(app)
 Bootstrap(app)
 
@@ -78,10 +81,13 @@ def question_page():
     if nxt_question is not None:
         return render_template('question_page.html',
                                question=nxt_question,
+                               form=AnswerForm(),
                                id=user_id,
                                is_last_answer_correct=is_last_answer_correct)
     else:
-        return render_template('naming_page.html', id=user_id)
+        return render_template('naming_page.html',
+                               form=NamingForm(),
+                               id=user_id)
 
 
 @app.route('/user/<string:user_id>/answer', methods=['POST'])
@@ -119,7 +125,9 @@ def verify_password(username, password):
 @app.route('/admin', methods=['GET'])
 @auth.login_required
 def admin_page():
-    return render_template('admin_page.html', questions=Question.query.all(),
+    return render_template('admin_page.html',
+                           question_form=AddQuestionForm(),
+                           questions=Question.query.all(),
                            show_wordcloud=request.args.get('is_wordcloud_generated'))
 
 

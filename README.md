@@ -7,6 +7,8 @@ Answers will checked with Event-Sourcing.
     - change in start.sh or in environment variable
 - PWD_ADMIN 
     - change in start.sh or in environment variable
+- SECRET_KEY
+    - change in start.sh or in environment variable
 
 ##UI-Endpoints
 ###'/'

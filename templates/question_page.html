@@ -20,8 +20,8 @@
     <p>{{question.id}}. {{question.text}}</p>
     <form action="/user/{{id}}/answer" method="POST">
         <div class="form-group">
-                <input class="form-control" name="answer">
-                <input class="btn btn-primary" type="submit" value="send">
+                {{ form.answer(class="form-control") }}
+                {{ form.submit(class="btn btn-primary") }}
         </div>
     </form>
 </div>

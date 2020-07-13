@@ -10,8 +10,8 @@
     <p>Enter your name:</p>
     <form class="form-inline" action="/user/{{id}}/name" method="POST">
         <div class="input-group-append">
-                <input class="form-control" name="name">
-                <input class="btn btn-primary" type="submit" value="send">
+                {{ form.name(class="form-control") }}
+                {{ form.submit(class="btn btn-primary") }}
         </div>
     </form>
 </div>
