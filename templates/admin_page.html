@@ -34,11 +34,11 @@
     <h3>Quiz Editor</h3>
             <form class="form-inline" action="/question" method="POST">
                <div class="form-group">
-                   <label>Question</label>
-                    <input class="form-control" name="question">
-                   <label>Answer</label>
-                    <input class="form-control" name="answer">
-                    <input class="btn btn-primary" type="submit" value="save">
+                    {{ question_form.question.label() }}
+                    {{ question_form.question(class="form-control") }}
+                    {{ question_form.answer.label() }}
+                    {{ question_form.answer(class="form-control") }}
+                    {{ question_form.save(class="btn btn-primary") }}
                     </div>
             </form>
     </div>
