@@ -16,6 +16,10 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['IMAGE_FOLDER'] = IMAGE_FOLDER
 app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
 
+app.add_url_rule('/static/images/<path:filename>',
+                 endpoint='images',
+                 view_func=app.send_static_file)
+
 Bootstrap(app)
 
 db = SQLAlchemy(app)

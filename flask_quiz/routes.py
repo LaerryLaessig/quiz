@@ -8,6 +8,7 @@ from flask_quiz.database import add_high_score, get_all_highscores, delete_quest
     add_answer_to_user, delete_all_user_data, get_all_questions, get_all_answers
 from flask_quiz import app, USER_ADMIN, PWD_ADMIN
 from flask_quiz.forms import AnswerForm, NamingForm, AddQuestionForm
+from flask_quiz.image_generator import generate_wordcloud_img
 from flask_quiz.replay import get_nxt_question_and_is_last_answer_correct
 
 auth = HTTPBasicAuth()
@@ -90,17 +91,9 @@ def action_delete_all_user_data():
 @app.route('/wordcloud', methods=['GET'])
 @auth.login_required
 def wordcloud_page():
-    words = [a.text for a in get_all_answers()]
-    print(words)
-    is_wordcloud_generated = False
-    if len(words) > 0:
-        try:
-            wordcloud = WordCloud(width=1024, height=1024, margin=0).generate(' '.join(words))
-            wordcloud.to_file('{}\\wordcloud.png'.format(os.path.join(app.config['IMAGE_FOLDER'])))
-            is_wordcloud_generated = True
-        except ValueError:
-            is_wordcloud_generated = False
-    return redirect(url_for('admin_page', is_wordcloud_generated=is_wordcloud_generated))
+    is_wordcloud_generated = generate_wordcloud_img()
+    return redirect(url_for('admin_page',
+                            is_wordcloud_generated=is_wordcloud_generated))
 
 
 @app.errorhandler(500)
