@@ -12,7 +12,7 @@ from sqlalchemy import asc
 from waitress import serve
 from wordcloud import WordCloud
 
-from Forms import AnswerForm, NamingForm, AddQuestionForm
+from forms import AnswerForm, NamingForm, AddQuestionForm
 
 USER_ADMIN = os.getenv('USER_ADMIN')
 PWD_ADMIN = os.getenv('PWD_ADMIN')
