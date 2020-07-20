@@ -1,10 +1,10 @@
 import os
 import uuid
 from sqlalchemy.exc import IntegrityError
-from flask import render_template, request, redirect, url_for, Response, send_file
+from flask import render_template, request, redirect, url_for, send_file
 from flask_httpauth import HTTPBasicAuth
 from flask_quiz.database import add_high_score, get_all_highscores, delete_question_by_id, add_question, \
-    add_answer_to_user, delete_all_user_data, get_all_questions, get_all_answers
+    add_answer_to_user, delete_all_user_data, get_all_questions
 from flask_quiz import app, USER_ADMIN, PWD_ADMIN
 from flask_quiz.forms import AnswerForm, NamingForm, AddQuestionForm
 from flask_quiz.image_generator import generate_wordcloud_img
