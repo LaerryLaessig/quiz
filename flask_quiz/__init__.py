@@ -3,7 +3,6 @@ from flask import Flask
 from flask_bootstrap import Bootstrap
 from flask_sqlalchemy import SQLAlchemy
 
-
 USER_ADMIN = os.getenv('USER_ADMIN')
 PWD_ADMIN = os.getenv('PWD_ADMIN')
 
