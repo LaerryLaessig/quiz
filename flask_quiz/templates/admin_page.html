@@ -14,13 +14,13 @@
 {% block content %}
 <div class="tab">
     <ul class="nav nav-tabs">
-        <li class="active"><a data-toggle="tab" href="#questions">questions</a></li>
-        <li><a data-toggle="tab" href="#wordcloud">wordcloud</a></li>
-        <li><a data-toggle="tab" href="#userdata">userdata</a></li>
+        <li class="{{ 'active' if active_tab == 'question' }}"><a data-toggle="tab" href="#questions">questions</a></li>
+        <li class="{{ 'active' if active_tab == 'wordcloud' }}"><a data-toggle="tab" href="#wordcloud">wordcloud</a></li>
+        <li class="{{ 'active' if active_tab == 'userdata' }}"><a data-toggle="tab" href="#userdata">userdata</a></li>
     </ul>
 </div>
 <div class="jumbotron text-center tab-content">
-    <div id="questions" class="tab-pane fade in active">
+    <div id="questions" class="{{ 'tab-pane fade in active' if active_tab == 'question' else 'tab-pane fade'}}">
         <div>
         <h3>quiz editor</h3>
                 <form class="form-inline" action="/question" method="POST">
@@ -57,7 +57,7 @@
                 </table>
         </div>
     </div>
-    <div id="wordcloud" class="tab-pane fade">
+    <div id="wordcloud" class="{{ 'tab-pane fade in active' if active_tab == 'wordcloud' else 'tab-pane fade'}}">
         <h3>data</h3>
             <div class="container">
             <div class="row">
@@ -76,7 +76,7 @@
             </div>
         </div>
     </div>
-    <div id="userdata" class="tab-pane fade">
+    <div id="userdata" class="{{ 'tab-pane fade in active' if active_tab == 'userdata' else 'tab-pane fade'}}">
         <h3>user data</h3>
             <div class="form-group">
                     <form action="/users/delete" method="POST">

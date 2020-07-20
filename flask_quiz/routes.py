@@ -63,6 +63,8 @@ def admin_page():
     return render_template('admin_page.html',
                            question_form=AddQuestionForm(),
                            questions=get_all_questions(),
+                           active_tab='questions' if request.args.get('active_tab') is None
+                           else request.args.get('active_tab'),
                            show_wordcloud=request.args.get('is_wordcloud_generated'))
 
 
@@ -70,21 +72,24 @@ def admin_page():
 @auth.login_required
 def put_question():
     add_question(question_text=request.form.get('question'), answer_text=request.form['answer'])
-    return redirect(url_for('admin_page'))
+    return redirect(url_for('admin_page',
+                            active_tab='question'))
 
 
 @app.route('/question/<int:question_id>/delete', methods=['POST'])
 @auth.login_required
 def delete_question(question_id):
     delete_question_by_id(question_id)
-    return redirect(url_for('admin_page'))
+    return redirect(url_for('admin_page',
+                            active_tab='question'))
 
 
 @app.route('/users/delete', methods=['POST'])
 @auth.login_required
 def action_delete_all_user_data():
     delete_all_user_data()
-    return redirect(url_for('admin_page'))
+    return redirect(url_for('admin_page',
+                            active_tab='userdata'))
 
 
 @app.route('/wordcloud', methods=['GET'])
@@ -92,7 +97,8 @@ def action_delete_all_user_data():
 def wordcloud_page():
     is_wordcloud_generated = generate_wordcloud_img()
     return redirect(url_for('admin_page',
-                            is_wordcloud_generated=is_wordcloud_generated))
+                            is_wordcloud_generated=is_wordcloud_generated,
+                            active_tab='wordcloud'))
 
 
 @app.errorhandler(500)
