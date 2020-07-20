@@ -32,8 +32,9 @@ def question_page():
 
 @app.route('/user/<string:user_id>/answer', methods=['POST'])
 def question(user_id):
-    print('user "{}" answered "{}"'.format(user_id, request.form['answer']))
-    add_answer_to_user(user_id, request.form['answer'])
+    answer = request.form['answer'].strip()
+    print('user "{}" answered "{}"'.format(user_id, answer))
+    add_answer_to_user(user_id, answer)
     return redirect(url_for('question_page', id=user_id))
 
 
