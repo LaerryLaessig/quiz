@@ -1,6 +1,4 @@
-import os
 import uuid
-from wordcloud import WordCloud
 from sqlalchemy.exc import IntegrityError
 from flask import render_template, request, redirect, url_for
 from flask_httpauth import HTTPBasicAuth
