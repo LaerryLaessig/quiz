@@ -63,7 +63,7 @@ def admin_page():
     return render_template('admin_page.html',
                            question_form=AddQuestionForm(),
                            questions=get_all_questions(),
-                           active_tab='questions' if request.args.get('active_tab') is None
+                           active_tab='question' if request.args.get('active_tab') is None
                            else request.args.get('active_tab'),
                            show_wordcloud=request.args.get('is_wordcloud_generated'))
 
