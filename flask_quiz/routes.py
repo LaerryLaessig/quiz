@@ -1,6 +1,7 @@
+import os
 import uuid
 from sqlalchemy.exc import IntegrityError
-from flask import render_template, request, redirect, url_for
+from flask import render_template, request, redirect, url_for, Response, send_file
 from flask_httpauth import HTTPBasicAuth
 from flask_quiz.database import add_high_score, get_all_highscores, delete_question_by_id, add_question, \
     add_answer_to_user, delete_all_user_data, get_all_questions, get_all_answers
@@ -99,6 +100,12 @@ def wordcloud_page():
     return redirect(url_for('admin_page',
                             is_wordcloud_generated=is_wordcloud_generated,
                             active_tab='wordcloud'))
+
+
+@app.route('/images/wordcloud.png', methods=['GET'])
+def get_wordcloud_img():
+    return send_file(open('{}/wordcloud.png'.format(os.path.join(app.config['IMAGE_FOLDER'])), 'rb'),
+                     mimetype='image/png')
 
 
 @app.errorhandler(500)
