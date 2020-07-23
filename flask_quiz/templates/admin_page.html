@@ -49,7 +49,9 @@
                         <td>{{question.answer}}</td>
                         <td>
                              <form action="/question/{{question.id}}/delete" method="POST">
-                                 <input class="btn btn-primary" type="submit" value="remove">
+                                 <button class="btn btn-danger" type="submit" title="remove">
+                                     <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                                 </button>
                              </form>
                          </td>
                     </tr>
