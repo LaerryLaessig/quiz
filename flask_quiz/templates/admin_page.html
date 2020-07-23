@@ -12,6 +12,14 @@
 {% endblock %}
 {% block title %}Quiz{% endblock %}
 {% block content %}
+<a href="/">
+    <button class="btn btn-outline-secondary"
+            id="nav_to_quiz"
+            type="button"
+            title="go to quiz">
+        <span class="glyphicon glyphicon-play-circle" aria-hidden="true"></span>
+    </button>
+</a>
     <div class="tab">
         <ul class="nav nav-tabs">
             <li class="{{ 'active' if active_tab == 'question' }}"><a data-toggle="tab" href="#questions">questions</a>

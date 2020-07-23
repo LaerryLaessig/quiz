@@ -1,30 +1,38 @@
 {% extends "bootstrap/base.html" %}
 {% block styles %}
-{{super()}}
-<link rel="stylesheet"
-      href="{{url_for('.static', filename='custom_style.css')}}">
+    {{ super() }}
+    <link rel="stylesheet"
+          href="{{ url_for('.static', filename='custom_style.css') }}">
 {% endblock %}
 {% block title %}Quiz{% endblock %}
 {% block content %}
+<a href="/admin">
+    <button class="btn btn-outline-secondary"
+            id="nav_to_admin_menu"
+            type="button"
+            title="admin menu">
+        <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+    </button>
+</a>
 
-<div class="jumbotron text-center">
-    {% if is_last_answer_correct == True %}
-        <div class="alert alert-success">
-            <strong>Right! </strong>Your last answer was correct.
-        </div>
-    {% elif is_last_answer_correct == False %}
-        <div class="alert alert-danger">
-            <strong>Wrong! </strong>Your last answer wasn't correct.
-        </div>
-    {% endif %}
-    <p>{{question.id}}. {{question.text}}</p>
-    <form class="form-inline" action="/user/{{id}}/answer" method="POST">
-        <div class="form-group">
+    <div class="jumbotron text-center">
+        {% if is_last_answer_correct == True %}
+            <div class="alert alert-success">
+                <strong>Right! </strong>Your last answer was correct.
+            </div>
+        {% elif is_last_answer_correct == False %}
+            <div class="alert alert-danger">
+                <strong>Wrong! </strong>Your last answer wasn't correct.
+            </div>
+        {% endif %}
+        <p>{{ question.id }}. {{ question.text }}</p>
+        <form class="form-inline" action="/user/{{ id }}/answer" method="POST">
+            <div class="form-group">
                 {{ form.answer(class="form-control") }}
                 <button class="btn btn-primary" type="submit" title="send">
                     <span class="glyphicon glyphicon-send" aria-hidden="true"></span>
                 </button>
-        </div>
-    </form>
-</div>
+            </div>
+        </form>
+    </div>
 {% endblock %}

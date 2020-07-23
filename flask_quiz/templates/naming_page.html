@@ -6,6 +6,14 @@
 {% endblock %}
 {% block title %}Quiz{% endblock %}
 {% block content %}
+<a href="/admin">
+    <button class="btn btn-outline-secondary"
+            id="nav_to_admin_menu"
+            type="button"
+            title="admin menu">
+        <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+    </button>
+</a>
 <div class="jumbotron text-center">
     <p>Enter your name:</p>
     <form class="form-inline" action="/user/{{id}}/name" method="POST">

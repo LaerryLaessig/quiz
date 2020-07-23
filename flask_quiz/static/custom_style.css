@@ -23,3 +23,15 @@
 .btn_edit {
     margin-left: 4em;
 }
+
+#nav_to_admin_menu {
+    float: right;
+    background-color: #f4511e;
+    color: white;
+}
+
+#nav_to_quiz {
+    float: right;
+    background-color: white;
+    color: #f4511e;
+}
