@@ -46,20 +46,27 @@
                             <h5 class="card-title">question {{ question.id }}</h5>
                         </div>
                         <div class="card-body">
-                            <div class="collapse in multi-collapse_question_{{ question.id }}" id="question_{{ question.id }}_show">
+                            <div class="collapse in multi-collapse_question_{{ question.id }}"
+                                 id="question_{{ question.id }}_show">
                                 <p class="card-text card-title  text-left">{{ question.text }}</p>
                                 <p class="card-text  text-center">{{ question.answer }}</p>
                             </div>
                             <div id="question_{{ question.id }}_edit"
                                  class="collapse multi-collapse_question_{{ question.id }}">
                                 <form action="/question/{{ question.id }}" method="POST">
-                                        <label>question</label>
-                                        <input class="form-control" name="question" type="text" value="{{ question.text }}">
-                                        <label>answer</label>
-                                        <input class="form-control" name="answer" type="text" value="{{ question.answer }}">
-                                        <button class="btn btn-success" title="save" type="submit">
-                                            <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>
-                                        </button>
+                                    <label>question</label>
+                                    <input class="form-control" name="question" type="text" value="{{ question.text }}">
+                                    <label>answer</label>
+                                    <input class="form-control" name="answer" type="text" value="{{ question.answer }}">
+                                    <button class="btn btn-success" title="save" type="submit">
+                                        <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>
+                                    </button>
+                                    <button class="btn btn-danger"
+                                            data-toggle="collapse"
+                                            data-target=".multi-collapse_question_{{ question.id }}" title="save"
+                                            type="reset">
+                                        <span class="glyphicon glyphicon-floppy-remove" aria-hidden="true"></span>
+                                    </button>
                                 </form>
                             </div>
                         </div>
