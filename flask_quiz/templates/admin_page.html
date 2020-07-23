@@ -50,16 +50,11 @@
                         <td>{{question.text}}</td>
                         <td>{{question.answer}}</td>
                         <td>
-                            <div  class="btn-group">
-                                <button class="btn btn-success" title="edit">
-                                    <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
-                                </button>
                              <form action="/question/{{question.id}}/delete" method="POST">
                                  <button class="btn btn-danger" type="submit" title="remove">
                                      <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                                  </button>
                              </form>
-                            </div>
                          </td>
                     </tr>
                     {% endfor %}
