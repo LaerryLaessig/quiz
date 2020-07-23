@@ -52,16 +52,14 @@
                             </div>
                             <div id="question_{{ question.id }}_edit"
                                  class="collapse multi-collapse_question_{{ question.id }}">
-                                <form>
-                                    <fieldset>
+                                <form action="/question/{{ question.id }}" method="POST">
                                         <label>question</label>
-                                        <input class="form-control" type="text" value="{{ question.text }}">
+                                        <input class="form-control" name="question" type="text" value="{{ question.text }}">
                                         <label>answer</label>
-                                        <input class="form-control" type="text" value="{{ question.answer }}">
-                                        <button class="btn btn-success" type="button" title="save" type="submit">
+                                        <input class="form-control" name="answer" type="text" value="{{ question.answer }}">
+                                        <button class="btn btn-success" title="save" type="submit">
                                             <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>
                                         </button>
-                                    <fieldset>
                                 </form>
                             </div>
                         </div>

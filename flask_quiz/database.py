@@ -35,6 +35,13 @@ def add_question(question_text: str, answer_text: str):
     db.session.commit()
 
 
+def update_question(question_id: int, question_text: str, answer_text:str):
+    question = Question.query.filter_by(id=question_id).first()
+    question.text = question_text
+    question.answer = answer_text
+    db.session.commit()
+
+
 def get_all_questions():
     return Question.query.all()
 
