@@ -11,7 +11,9 @@
     <form class="form-inline" action="/user/{{id}}/name" method="POST">
         <div class="input-group-append">
                 {{ form.name(class="form-control") }}
-                {{ form.submit(class="btn btn-primary") }}
+                <button class="btn btn-primary" type="submit" title="send">
+                    <span class="glyphicon glyphicon-send" aria-hidden="true"></span>
+                </button>
         </div>
     </form>
 </div>

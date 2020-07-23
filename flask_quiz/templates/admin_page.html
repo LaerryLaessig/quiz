@@ -29,8 +29,10 @@
                         {{ question_form.question(class="form-control") }}
                         {{ question_form.answer.label() }}
                         {{ question_form.answer(class="form-control") }}
-                        {{ question_form.save(class="btn btn-primary") }}
-                        </div>
+                        <button class="btn btn-primary" type="submit" title="save">
+                            <span class="glyphicon glyphicon-save" aria-hidden="true"></span>
+                        </button>
+                    </div>
                 </form>
         </div>
             <br>
@@ -38,9 +40,9 @@
                 <table class="table text-left">
                     <tr>
                         <th scope="col" width="5%">id</th>
-                        <th scope="col" width="45%">question</th>
-                        <th scope="col" width="45%">answer</th>
-                        <th scope="col" width="5%">action</th>
+                        <th scope="col" width="40%">question</th>
+                        <th scope="col" width="40%">answer</th>
+                        <th scope="col" width="15%">action</th>
                     </tr>
                     {% for question in questions %}
                     <tr>
@@ -48,11 +50,16 @@
                         <td>{{question.text}}</td>
                         <td>{{question.answer}}</td>
                         <td>
+                            <div  class="btn-group">
+                                <button class="btn btn-success" title="edit">
+                                    <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                                </button>
                              <form action="/question/{{question.id}}/delete" method="POST">
                                  <button class="btn btn-danger" type="submit" title="remove">
                                      <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                                  </button>
                              </form>
+                            </div>
                          </td>
                     </tr>
                     {% endfor %}
@@ -72,7 +79,9 @@
                 </div>
                 <div class="col-sm form-group">
                     <form action="/wordcloud" method="GET">
-                            <input class="btn btn-primary" type="submit" value="generate Wordcloud">
+                         <button class="btn btn-primary" type="submit" title="generate Wordcloud">
+                            <span class="glyphicon glyphicon-export" aria-hidden="true"></span> generate Wordcloud
+                        </button>
                     </form>
                 </div>
             </div>
@@ -82,7 +91,9 @@
         <h3>user data</h3>
             <div class="form-group">
                     <form action="/users/delete" method="POST">
-                        <input class="btn btn-primary" type="submit" value="remove all user data">
+                        <button class="btn btn-danger" type="submit" title="remove all user data">
+                                     <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> remove all user data
+                        </button>
                     </form>
             </div>
     </div>
