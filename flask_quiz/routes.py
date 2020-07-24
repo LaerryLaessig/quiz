@@ -73,7 +73,9 @@ def admin_page():
 @app.route('/question', methods=['POST'])
 @auth.login_required
 def put_question():
-    add_question(question_text=request.form.get('question'), answer_text=request.form['answer'])
+    add_question(question_text=request.form.get('question'),
+                 answer_text=request.form['answer'],
+                 order_number=get_nxt_question_order_number())
     return redirect(url_for('admin_page',
                             active_tab='question'))
 
@@ -107,7 +109,7 @@ def move_down_question(question_id=0):
 def delete_question(question_id=0):
     delete_question_by_id(question_id)
     return redirect(url_for('admin_page',
-                            active_tab='question')+ '#question_{}'.format(question_id -1))
+                            active_tab='question') + '#question_{}'.format(question_id - 1))
 
 
 @app.route('/users/delete', methods=['POST'])
@@ -141,3 +143,7 @@ def internal_error(error):
 @app.route('/health')
 def health_check():
     return {"status": "ok"}
+
+
+def get_nxt_question_order_number():
+    return len(get_all_questions()) + 1

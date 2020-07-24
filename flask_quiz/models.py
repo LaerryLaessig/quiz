@@ -4,13 +4,14 @@ from flask_quiz.database import db
 
 class Question(db.Model):
     id = db.Column('id', db.Integer, primary_key=True)
-    order_number = db.Column('order_number', db.Integer), db.Sequence('seq_reg_id', start=1, increment=1)
+    order_number = db.Column('order_number', db.Integer)
     text = db.Column('text', db.String)
     answer = db.Column('answer', db.String)
 
-    def __init__(self, text, answer):
+    def __init__(self, text, answer, order_number):
         self.text = text
         self.answer = answer
+        self.order_number = order_number
 
 
 class Answer(db.Model):

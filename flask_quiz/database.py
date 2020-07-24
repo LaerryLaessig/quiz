@@ -30,15 +30,26 @@ def get_all_answers():
     return Answer.query.all()
 
 
-def add_question(question_text: str, answer_text: str):
-    db.session.add(Question(text=question_text, answer=answer_text))
+def add_question(question_text: str, answer_text: str, order_number: int):
+    db.session.add(Question(text=question_text, answer=answer_text, order_number=order_number))
     db.session.commit()
 
 
-def update_question(question_id: int, question_text: str, answer_text:str):
+def update_question(question_id: int, question_text: str, answer_text: str):
     question = Question.query.filter_by(id=question_id).first()
     question.text = question_text
     question.answer = answer_text
+    db.session.commit()
+
+
+def update_question_postion(question_id: int,
+                            question_order_number: int,
+                            other_question_id: int,
+                            other_question_order_number: int):
+    question = Question.query.filter_by(id=question_id).first()
+    question.order = question_order_number
+    other_question = Question.query.filter_by(id=other_question_id).first()
+    other_question.order = other_question_order_number
     db.session.commit()
 
 

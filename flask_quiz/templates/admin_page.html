@@ -34,7 +34,7 @@
         <div id="questions" class="{{ 'tab-pane fade in active' if active_tab == 'question' else 'tab-pane fade' }}">
             <div>
                 <h3>quiz editor</h3>
-                <form class="form-inline" action="/question" method="POST">
+                <form action="/question" method="POST">
                     <div class="form-group">
                         {{ question_form.question.label() }}
                         {{ question_form.question(class="form-control") }}
@@ -49,11 +49,11 @@
             <br>
             <div class="card-columns">
                 {% for question in questions %}
-                    <div class="card">
-                        <div class="card-header  text-left">
-                            <h5 class="card-title">question {{ question.id }}</h5>
-                        </div>
+                    <div class="card" id="question_{{ question.id }}">
                         <form action="/question/{{ question.id }}" method="POST">
+                            <div class="card-header  text-left">
+                                <h5 class="card-title">question {{ question.id }}</h5>
+                            </div>
                             <div class="card-body">
                                 <div class="collapse in multi-collapse_question_{{ question.id }}"
                                      id="question_{{ question.id }}_show">
@@ -84,26 +84,40 @@
                                     </div>
                                 </div>
                             </div>
-                        </form>
-                        <div class="card-footer collapse in multi-collapse_question_{{ question.id }}">
-                            <div class="text-right">
-                                <form class="form-inline" action="/question/{{ question.id }}/delete" method="POST">
+                            <div class="card-footer collapse in multi-collapse_question_{{ question.id }}">
+                                <div class="text-right">
                                     <div class="form-group">
+                                        <div class="btn-group">
+                                            <button class="btn btn-info"
+                                                    type="submit"
+                                                    formaction="/question/{{ question.id }}/up">
+                                                <span class="glyphicon glyphicon-arrow-up"></span>
+                                            </button>
+                                            <button class="btn btn-info"
+                                                    type="submit"
+                                                    formaction="/question/{{ question.id }}/down">
+                                                <span class="glyphicon glyphicon-arrow-down"></span>
+                                            </button>
+                                        </div>
                                         <button class="btn btn-success"
                                                 type="button" title="edit"
                                                 data-toggle="collapse"
                                                 data-target=".multi-collapse_question_{{ question.id }}"
                                                 aria-expanded="false"
-                                                aria-controls="question_{{ question.id }}_edit question_{{ question.id }}_show">
+                                                aria-controls="question_{{ question.id }}_edit question_{{ question.id }}_show"
+                                                {{ 'autofocus' if question.id == focused_question }}>
                                             <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
                                         </button>
-                                        <button class="btn btn-danger" type="submit" title="remove">
+                                        <button class="btn btn-danger"
+                                                type="submit"
+                                                title="remove"
+                                                formaction="/question/{{ question.id }}/delete">
                                             <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                                         </button>
                                     </div>
-                                </form>
+                                </div>
                             </div>
-                        </div>
+                        </form>
                     </div>
                 {% endfor %}
             </div>
