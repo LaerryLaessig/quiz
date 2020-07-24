@@ -12,14 +12,14 @@
 {% endblock %}
 {% block title %}Quiz{% endblock %}
 {% block content %}
-<a href="/">
-    <button class="btn btn-outline-secondary"
-            id="nav_to_quiz"
-            type="button"
-            title="go to quiz">
-        <span class="glyphicon glyphicon-play-circle" aria-hidden="true"></span>
-    </button>
-</a>
+    <a href="/">
+        <button class="btn btn-outline-secondary"
+                id="nav_to_quiz"
+                type="button"
+                title="go to quiz">
+            <span class="glyphicon glyphicon-play-circle" aria-hidden="true"></span>
+        </button>
+    </a>
     <div class="tab">
         <ul class="nav nav-tabs">
             <li class="{{ 'active' if active_tab == 'question' }}"><a data-toggle="tab" href="#questions">questions</a>
@@ -53,50 +53,56 @@
                         <div class="card-header  text-left">
                             <h5 class="card-title">question {{ question.id }}</h5>
                         </div>
-                        <div class="card-body">
-                            <div class="collapse in multi-collapse_question_{{ question.id }}"
-                                 id="question_{{ question.id }}_show">
-                                <p class="card-text card-title  text-left">{{ question.text }}</p>
-                                <p class="card-text  text-center">{{ question.answer }}</p>
-                            </div>
-                            <div id="question_{{ question.id }}_edit"
-                                 class="collapse multi-collapse_question_{{ question.id }}">
-                                <form action="/question/{{ question.id }}" method="POST">
+                        <form action="/question/{{ question.id }}" method="POST">
+                            <div class="card-body">
+                                <div class="collapse in multi-collapse_question_{{ question.id }}"
+                                     id="question_{{ question.id }}_show">
+                                    <p class="card-text card-title  text-left">{{ question.text }}</p>
+                                    <p class="card-text  text-center">{{ question.answer }}</p>
+                                </div>
+                                <div id="question_{{ question.id }}_edit"
+                                     class="collapse multi-collapse_question_{{ question.id }}">
                                     <label>question</label>
                                     <input class="form-control" name="question" type="text" value="{{ question.text }}">
                                     <label>answer</label>
                                     <input class="form-control" name="answer" type="text" value="{{ question.answer }}">
-                                    <button class="btn btn-success" title="save" type="submit">
-                                        <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>
-                                    </button>
-                                    <button class="btn btn-danger"
-                                            data-toggle="collapse"
-                                            data-target=".multi-collapse_question_{{ question.id }}" title="save"
-                                            type="reset">
-                                        <span class="glyphicon glyphicon-floppy-remove" aria-hidden="true"></span>
-                                    </button>
-                                </form>
-                            </div>
-                        </div>
-                        <div class="card-footer">
-                            <div class="row">
-                                <div class="col-sm-2">
-                                    <button class="btn btn-success collapse in multi-collapse_question_{{ question.id }} btn_edit"
-                                            type="button" title="edit"
-                                            data-toggle="collapse"
-                                            data-target=".multi-collapse_question_{{ question.id }}"
-                                            aria-expanded="false"
-                                            aria-controls="question_{{ question.id }}_edit question_{{ question.id }}_show">
-                                        <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
-                                    </button>
                                 </div>
-                                <div class="col-sm-1">
-                                    <form class="form-inline" action="/question/{{ question.id }}/delete" method="POST">
+                            </div>
+                            <div class="card-footer collapse multi-collapse_question_{{ question.id }}">
+                                <div class="text-right ">
+                                    <div class="text-right">
+                                        <button class="btn btn-success" title="save" type="submit">
+                                            <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>
+                                        </button>
+                                        <button class="btn btn-danger"
+                                                data-toggle="collapse"
+                                                data-target=".multi-collapse_question_{{ question.id }}" title="save"
+                                                type="reset">
+                                            <span class="glyphicon glyphicon-floppy-remove" aria-hidden="true"></span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                        <div class="card-footer collapse in multi-collapse_question_{{ question.id }}">
+                            <div class="text-right">
+                                <form class="form-inline" action="/question/{{ question.id }}/delete" method="POST">
+                                    <div class="form-group">
+                                        <button class="btn btn-success"
+                                                type="button" title="edit"
+                                                data-toggle="collapse"
+                                                data-target=".multi-collapse_question_{{ question.id }}"
+                                                aria-expanded="false"
+                                                aria-controls="question_{{ question.id }}_edit question_{{ question.id }}_show">
+                                            <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                                        </button>
+                                    </div>
+                                    <div class="form-group">
                                         <button class="btn btn-danger" type="submit" title="remove">
                                             <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                                         </button>
-                                    </form>
-                                </div>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>

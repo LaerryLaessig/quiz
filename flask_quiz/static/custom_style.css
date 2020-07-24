@@ -9,20 +9,21 @@
     margin-top: 1em;
 }
 .card-header {
-    border-bottom: 1px solid #ffffff;
     margin-top: 1em;
 }
 .card-title {
     margin-left: 3em;
 }
 
-.card-footer {
+.card-body {
     border-top: 1px solid #ffffff;
+    border-bottom: 1px solid #ffffff;
 }
 
-.btn_edit {
-    margin-left: 4em;
+.card-footer {
+    margin: 1em 3em;
 }
+
 
 #nav_to_admin_menu {
     float: right;
@@ -34,4 +35,9 @@
     float: right;
     background-color: white;
     color: #f4511e;
+}
+
+.edit_actions {
+    margin-right: 1.5em;
+    margin-left: 1.5em;
 }
