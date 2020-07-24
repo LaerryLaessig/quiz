@@ -8,6 +8,7 @@ from flask_quiz.database import add_high_score, get_all_highscores, delete_quest
 from flask_quiz import app, USER_ADMIN, PWD_ADMIN
 from flask_quiz.forms import AnswerForm, NamingForm, AddQuestionForm
 from flask_quiz.image_generator import generate_wordcloud_img
+from flask_quiz.order import set_new_order
 from flask_quiz.replay import get_nxt_question_and_is_last_answer_correct
 
 auth = HTTPBasicAuth()
@@ -79,18 +80,34 @@ def put_question():
 
 @app.route('/question/<int:question_id>', methods=['POST'])
 @auth.login_required
-def edit_question(question_id):
+def edit_question(question_id=0):
     update_question(question_id, request.form['question'], request.form['answer'])
     return redirect(url_for('admin_page',
-                            active_tab='question'))
+                            active_tab='question') + '#question_{}'.format(question_id))
+
+
+@app.route('/question/<int:question_id>/up', methods=['POST'])
+@auth.login_required
+def move_up_question(question_id=0):
+    set_new_order(question_id, True)
+    return redirect(url_for('admin_page',
+                            active_tab='question') + '#question_{}'.format(question_id))
+
+
+@app.route('/question/<int:question_id>/down', methods=['POST'])
+@auth.login_required
+def move_down_question(question_id=0):
+    set_new_order(question_id, False)
+    return redirect(url_for('admin_page',
+                            active_tab='question') + '#question_{}'.format(question_id))
 
 
 @app.route('/question/<int:question_id>/delete', methods=['POST'])
 @auth.login_required
-def delete_question(question_id):
+def delete_question(question_id=0):
     delete_question_by_id(question_id)
     return redirect(url_for('admin_page',
-                            active_tab='question'))
+                            active_tab='question')+ '#question_{}'.format(question_id -1))
 
 
 @app.route('/users/delete', methods=['POST'])

@@ -4,6 +4,7 @@ from flask_quiz.database import db
 
 class Question(db.Model):
     id = db.Column('id', db.Integer, primary_key=True)
+    order_number = db.Column('order_number', db.Integer), db.Sequence('seq_reg_id', start=1, increment=1)
     text = db.Column('text', db.String)
     answer = db.Column('answer', db.String)
 
