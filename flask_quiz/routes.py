@@ -4,11 +4,11 @@ from sqlalchemy.exc import IntegrityError
 from flask import render_template, request, redirect, url_for, send_file
 from flask_httpauth import HTTPBasicAuth
 from flask_quiz.database import add_high_score, get_all_highscores, delete_question_by_id, add_question, \
-    add_answer_to_user, delete_all_user_data, get_all_questions, update_question
+    add_answer_to_user, delete_all_user_data, get_all_questions, update_question, update_in_order_new_order_questions
 from flask_quiz import app, USER_ADMIN, PWD_ADMIN
 from flask_quiz.forms import AnswerForm, NamingForm, AddQuestionForm
 from flask_quiz.image_generator import generate_wordcloud_img
-from flask_quiz.order import set_new_order
+from flask_quiz.order import toggle_postion_in_order, order_question_by_order_number
 from flask_quiz.replay import get_nxt_question_and_is_last_answer_correct
 
 auth = HTTPBasicAuth()
@@ -62,11 +62,13 @@ def verify_password(username, password):
 @app.route('/admin', methods=['GET'])
 @auth.login_required
 def admin_page():
+    questions = get_all_questions()
     return render_template('admin_page.html',
                            question_form=AddQuestionForm(),
                            questions=get_all_questions(),
                            active_tab='question' if request.args.get('active_tab') is None
                            else request.args.get('active_tab'),
+                           last_order_number=len(questions),
                            show_wordcloud=request.args.get('is_wordcloud_generated'))
 
 
@@ -91,7 +93,7 @@ def edit_question(question_id=0):
 @app.route('/question/<int:question_id>/up', methods=['POST'])
 @auth.login_required
 def move_up_question(question_id=0):
-    set_new_order(question_id, True)
+    update_in_order_new_order_questions(toggle_postion_in_order(question_id, False))
     return redirect(url_for('admin_page',
                             active_tab='question') + '#question_{}'.format(question_id))
 
@@ -99,7 +101,7 @@ def move_up_question(question_id=0):
 @app.route('/question/<int:question_id>/down', methods=['POST'])
 @auth.login_required
 def move_down_question(question_id=0):
-    set_new_order(question_id, False)
+    update_in_order_new_order_questions(toggle_postion_in_order(question_id, True))
     return redirect(url_for('admin_page',
                             active_tab='question') + '#question_{}'.format(question_id))
 
@@ -108,6 +110,7 @@ def move_down_question(question_id=0):
 @auth.login_required
 def delete_question(question_id=0):
     delete_question_by_id(question_id)
+    update_in_order_new_order_questions(order_question_by_order_number())
     return redirect(url_for('admin_page',
                             active_tab='question') + '#question_{}'.format(question_id - 1))
 
@@ -115,7 +118,7 @@ def delete_question(question_id=0):
 @app.route('/users/delete', methods=['POST'])
 @auth.login_required
 def action_delete_all_user_data():
-    delete_all_user_data()
+    delete_all_user_data(order_question())
     return redirect(url_for('admin_page',
                             active_tab='userdata'))
 
@@ -147,3 +150,4 @@ def health_check():
 
 def get_nxt_question_order_number():
     return len(get_all_questions()) + 1
+

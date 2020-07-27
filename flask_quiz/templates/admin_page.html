@@ -52,7 +52,7 @@
                     <div class="card" id="question_{{ question.id }}">
                         <form action="/question/{{ question.id }}" method="POST">
                             <div class="card-header  text-left">
-                                <h5 class="card-title">question {{ question.id }}</h5>
+                                <h5 class="card-title">question {{ question.order_number }}</h5>
                             </div>
                             <div class="card-body">
                                 <div class="collapse in multi-collapse_question_{{ question.id }}"
@@ -88,16 +88,20 @@
                                 <div class="text-right">
                                     <div class="form-group">
                                         <div class="btn-group">
+                                        {% if question.order_number > 1%}
                                             <button class="btn btn-info"
                                                     type="submit"
                                                     formaction="/question/{{ question.id }}/up">
                                                 <span class="glyphicon glyphicon-arrow-up"></span>
                                             </button>
+                                        {% endif %}
+                                        {% if question.order_number < last_order_number%}
                                             <button class="btn btn-info"
                                                     type="submit"
                                                     formaction="/question/{{ question.id }}/down">
                                                 <span class="glyphicon glyphicon-arrow-down"></span>
                                             </button>
+                                        {% endif %}
                                         </div>
                                         <button class="btn btn-success"
                                                 type="button" title="edit"

@@ -42,24 +42,24 @@ def update_question(question_id: int, question_text: str, answer_text: str):
     db.session.commit()
 
 
-def update_question_postion(question_id: int,
-                            question_order_number: int,
-                            other_question_id: int,
-                            other_question_order_number: int):
-    question = Question.query.filter_by(id=question_id).first()
-    question.order = question_order_number
-    other_question = Question.query.filter_by(id=other_question_id).first()
-    other_question.order = other_question_order_number
-    db.session.commit()
-
-
 def get_all_questions():
-    return Question.query.all()
+    return Question.query.order_by(asc(Question.order_number)).all()
+
+
+def get_question_by_id(question_id: int):
+    return Question.query.filter_by(id=question_id).first()
 
 
 def delete_question_by_id(question_id: int):
     Question.query.filter_by(id=question_id).delete()
     db.session.commit()
+
+
+def update_in_order_new_order_questions(questions: [Question]):
+    for q in questions:
+        question = Question.query.filter_by(id=q.id).first()
+        question.order_number = questions.index(q) + 1
+        db.session.commit()
 
 
 def delete_all_user_data():
