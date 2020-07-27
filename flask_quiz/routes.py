@@ -9,7 +9,7 @@ from flask_quiz.database import add_high_score, get_all_highscores, delete_quest
 from flask_quiz import app, USER_ADMIN, PWD_ADMIN
 from flask_quiz.forms import AnswerForm, NamingForm, AddQuestionForm
 from flask_quiz.image_generator import generate_wordcloud_img
-from flask_quiz.order import toggle_postion_in_order, order_question_by_order_number
+from flask_quiz.order import toggle_postion_in_order, sort_question_by_order_number
 from flask_quiz.replay import get_next_question_and_is_last_answer_correct
 
 auth = HTTPBasicAuth()
@@ -115,7 +115,7 @@ def move_down_question(question_id=0):
 @auth.login_required
 def delete_question(question_id=0):
     delete_question_by_id(question_id)
-    update_in_order_new_order_questions(order_question_by_order_number(get_all_questions()))
+    update_in_order_new_order_questions(sort_question_by_order_number(get_all_questions()))
     return redirect(url_for('admin_page',
                             active_tab='question') + '#question_{}'.format(question_id - 1))
 
