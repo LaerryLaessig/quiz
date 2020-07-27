@@ -5,10 +5,10 @@ from flask import render_template, request, redirect, url_for, send_file
 from flask_httpauth import HTTPBasicAuth
 from flask_quiz.database import add_high_score, get_all_highscores, delete_question_by_id, add_question, \
     add_answer_to_user, delete_all_user_data, get_all_questions, update_question, update_in_order_new_order_questions, \
-    get_question_by_id, get_answers_by_user
+    get_question_by_id, get_answers_by_user, get_all_answers
 from flask_quiz import app, USER_ADMIN, PWD_ADMIN
 from flask_quiz.forms import AnswerForm, NamingForm, AddQuestionForm
-from flask_quiz.image_generator import generate_wordcloud_img
+from flask_quiz.charts import generate_wordcloud_img
 from flask_quiz.order import toggle_postion_in_order, sort_question_by_order_number
 from flask_quiz.replay import get_next_question_and_is_last_answer_correct
 
@@ -132,7 +132,7 @@ def action_delete_all_user_data():
 @app.route('/wordcloud', methods=['GET'])
 @auth.login_required
 def wordcloud_page():
-    is_wordcloud_generated = generate_wordcloud_img()
+    is_wordcloud_generated = generate_wordcloud_img(get_all_answers())
     return redirect(url_for('admin_page',
                             is_wordcloud_generated=is_wordcloud_generated,
                             active_tab='wordcloud'))
