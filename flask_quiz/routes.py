@@ -9,7 +9,7 @@ from flask_quiz import app, USER_ADMIN, PWD_ADMIN
 from flask_quiz.forms import AnswerForm, NamingForm, AddQuestionForm
 from flask_quiz.image_generator import generate_wordcloud_img
 from flask_quiz.order import toggle_postion_in_order, order_question_by_order_number
-from flask_quiz.replay import get_nxt_question_and_is_last_answer_correct
+from flask_quiz.replay import get_next_question_and_is_last_answer_correct
 
 auth = HTTPBasicAuth()
 
@@ -17,7 +17,7 @@ auth = HTTPBasicAuth()
 @app.route('/', methods=['GET'])
 def question_page():
     user_id = uuid.uuid4() if request.args.get('id') is None else request.args.get('id')
-    nxt_question, is_last_answer_correct = get_nxt_question_and_is_last_answer_correct(str(user_id))
+    nxt_question, is_last_answer_correct = get_next_question_and_is_last_answer_correct(str(user_id))
     if nxt_question is not None:
         return render_template('question_page.html',
                                question=nxt_question,

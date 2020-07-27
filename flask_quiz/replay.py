@@ -1,7 +1,7 @@
 from flask_quiz.database import get_all_questions, get_answers_by_user
 
 
-def get_nxt_question_and_is_last_answer_correct(user_id: str):
+def get_next_question_and_is_last_answer_correct(user_id: str):
     all_questions_iterator = iter(get_all_questions())
     user_answers = get_answers_by_user(user_id)
     next_question_to_answer = next(all_questions_iterator, None)
