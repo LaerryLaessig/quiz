@@ -4,7 +4,8 @@ from sqlalchemy.exc import IntegrityError
 from flask import render_template, request, redirect, url_for, send_file
 from flask_httpauth import HTTPBasicAuth
 from flask_quiz.database import add_high_score, get_all_highscores, delete_question_by_id, add_question, \
-    add_answer_to_user, delete_all_user_data, get_all_questions, update_question, update_in_order_new_order_questions
+    add_answer_to_user, delete_all_user_data, get_all_questions, update_question, update_in_order_new_order_questions, \
+    get_question_by_id
 from flask_quiz import app, USER_ADMIN, PWD_ADMIN
 from flask_quiz.forms import AnswerForm, NamingForm, AddQuestionForm
 from flask_quiz.image_generator import generate_wordcloud_img
@@ -93,7 +94,9 @@ def edit_question(question_id=0):
 @app.route('/question/<int:question_id>/up', methods=['POST'])
 @auth.login_required
 def move_up_question(question_id=0):
-    update_in_order_new_order_questions(toggle_postion_in_order(question_id, False))
+    update_in_order_new_order_questions(toggle_postion_in_order(get_all_questions(),
+                                                                get_question_by_id(question_id),
+                                                                False))
     return redirect(url_for('admin_page',
                             active_tab='question') + '#question_{}'.format(question_id))
 
@@ -101,7 +104,9 @@ def move_up_question(question_id=0):
 @app.route('/question/<int:question_id>/down', methods=['POST'])
 @auth.login_required
 def move_down_question(question_id=0):
-    update_in_order_new_order_questions(toggle_postion_in_order(question_id, True))
+    update_in_order_new_order_questions(toggle_postion_in_order(get_all_questions(),
+                                                                get_question_by_id(question_id),
+                                                                True))
     return redirect(url_for('admin_page',
                             active_tab='question') + '#question_{}'.format(question_id))
 
@@ -110,7 +115,7 @@ def move_down_question(question_id=0):
 @auth.login_required
 def delete_question(question_id=0):
     delete_question_by_id(question_id)
-    update_in_order_new_order_questions(order_question_by_order_number())
+    update_in_order_new_order_questions(order_question_by_order_number(get_all_questions()))
     return redirect(url_for('admin_page',
                             active_tab='question') + '#question_{}'.format(question_id - 1))
 
@@ -118,7 +123,7 @@ def delete_question(question_id=0):
 @app.route('/users/delete', methods=['POST'])
 @auth.login_required
 def action_delete_all_user_data():
-    delete_all_user_data(order_question())
+    delete_all_user_data()
     return redirect(url_for('admin_page',
                             active_tab='userdata'))
 
@@ -150,4 +155,3 @@ def health_check():
 
 def get_nxt_question_order_number():
     return len(get_all_questions()) + 1
-
