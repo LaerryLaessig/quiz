@@ -30,12 +30,12 @@ def get_all_answers():
     return Answer.query.all()
 
 
-def add_question(question_text: str, answer_text: str):
-    db.session.add(Question(text=question_text, answer=answer_text))
+def add_question(question_text: str, answer_text: str, order_number: int):
+    db.session.add(Question(text=question_text, answer=answer_text, order_number=order_number))
     db.session.commit()
 
 
-def update_question(question_id: int, question_text: str, answer_text:str):
+def update_question(question_id: int, question_text: str, answer_text: str):
     question = Question.query.filter_by(id=question_id).first()
     question.text = question_text
     question.answer = answer_text
@@ -43,12 +43,23 @@ def update_question(question_id: int, question_text: str, answer_text:str):
 
 
 def get_all_questions():
-    return Question.query.all()
+    return Question.query.order_by(asc(Question.order_number)).all()
+
+
+def get_question_by_id(question_id: int):
+    return Question.query.filter_by(id=question_id).first()
 
 
 def delete_question_by_id(question_id: int):
     Question.query.filter_by(id=question_id).delete()
     db.session.commit()
+
+
+def update_in_order_new_order_questions(questions: [Question]):
+    for q in questions:
+        question = Question.query.filter_by(id=q.id).first()
+        question.order_number = questions.index(q) + 1
+        db.session.commit()
 
 
 def delete_all_user_data():

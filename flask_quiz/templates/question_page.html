@@ -25,7 +25,7 @@
                 <strong>Wrong! </strong>Your last answer wasn't correct.
             </div>
         {% endif %}
-        <p>{{ question.id }}. {{ question.text }}</p>
+        <p>{{ question.order_number }}. {{ question.text }}</p>
         <form class="form-inline" action="/user/{{ id }}/answer" method="POST">
             <div class="form-group">
                 {{ form.answer(class="form-control") }}

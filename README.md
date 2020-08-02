@@ -1,14 +1,17 @@
 # Editable Quiz
 
-Answers will checked with Event-Sourcing.
+Quiz with a editor to update, delete and create questions.
 
 ## environment variables
 - USER_ADMIN
     - change in start.sh or in environment variable
+    - default value admin
 - PWD_ADMIN 
     - change in start.sh or in environment variable
+    - default value admin
 - SECRET_KEY
     - change in start.sh or in environment variable
+    - default value secret_key
 
 ## UI-Endpoints
 ### '/'
@@ -16,7 +19,7 @@ The quiz.
 ### '/admin
 Quiz editor with authentication.
 
- ### Libaries
+## dependencies
  - flask
     - micro web framework
     - https://palletsprojects.com/p/flask/
