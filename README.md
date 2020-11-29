@@ -35,6 +35,4 @@ Quiz editor with authentication.
  - waitress
     - Waitress is meant to be a production-quality pure-Python WSGI server with very acceptable performance
     - https://github.com/Pylons/waitress
- - wordcloud
-   - Wordcloud generator
-   - https://github.com/amueller/word_cloud
+

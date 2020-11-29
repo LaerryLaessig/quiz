@@ -1,14 +1,12 @@
-import os
 import uuid
 from sqlalchemy.exc import IntegrityError
-from flask import render_template, request, redirect, url_for, send_file
+from flask import render_template, request, redirect, url_for, send_file, send_from_directory
 from flask_httpauth import HTTPBasicAuth
 from flask_quiz.database import add_high_score, get_all_highscores, delete_question_by_id, add_question, \
     add_answer_to_user, delete_all_user_data, get_all_questions, update_question, update_in_order_new_order_questions, \
     get_question_by_id, get_answers_by_user
 from flask_quiz import app, USER_ADMIN, PWD_ADMIN
 from flask_quiz.forms import AnswerForm, NamingForm, AddQuestionForm
-from flask_quiz.image_generator import generate_wordcloud_img
 from flask_quiz.order import toggle_postion_in_order, sort_question_by_order_number
 from flask_quiz.replay import get_next_question_and_is_last_answer_correct
 
@@ -70,8 +68,7 @@ def admin_page():
                            questions=get_all_questions(),
                            active_tab='question' if request.args.get('active_tab') is None
                            else request.args.get('active_tab'),
-                           last_order_number=len(questions),
-                           show_wordcloud=request.args.get('is_wordcloud_generated'))
+                           last_order_number=len(questions))
 
 
 @app.route('/question', methods=['POST'])
@@ -129,19 +126,11 @@ def action_delete_all_user_data():
                             active_tab='userdata'))
 
 
-@app.route('/wordcloud', methods=['GET'])
+@app.route('/charts', methods=['GET'])
 @auth.login_required
-def wordcloud_page():
-    is_wordcloud_generated = generate_wordcloud_img()
+def charts_page():
     return redirect(url_for('admin_page',
-                            is_wordcloud_generated=is_wordcloud_generated,
-                            active_tab='wordcloud'))
-
-
-@app.route('/images/wordcloud.png', methods=['GET'])
-def get_wordcloud_img():
-    return send_file(open('{}/wordcloud.png'.format(os.path.join(app.config['IMAGE_FOLDER'])), 'rb'),
-                     mimetype='image/png')
+                            active_tab='charts'))
 
 
 @app.errorhandler(500)

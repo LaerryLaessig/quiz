@@ -3,6 +3,7 @@
     {{ super() }}
     <link rel="stylesheet"
           href="{{ url_for('.static', filename='custom_style.css') }}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
 {% endblock %}
 {% block metas %}
     {{ super() }}
@@ -24,7 +25,7 @@
         <ul class="nav nav-tabs">
             <li class="{{ 'active' if active_tab == 'question' }}"><a data-toggle="tab" href="#questions">questions</a>
             </li>
-            <li class="{{ 'active' if active_tab == 'wordcloud' }}"><a data-toggle="tab" href="#wordcloud">wordcloud</a>
+            <li class="{{ 'active' if active_tab == 'charts' }}"><a data-toggle="tab" href="#charts">charts</a>
             </li>
             <li class="{{ 'active' if active_tab == 'userdata' }}"><a data-toggle="tab" href="#userdata">userdata</a>
             </li>
@@ -126,22 +127,17 @@
                 {% endfor %}
             </div>
         </div>
-        <div id="wordcloud" class="{{ 'tab-pane fade in active' if active_tab == 'wordcloud' else 'tab-pane fade' }}">
+        <div id="charts" class="{{ 'tab-pane fade in active' if active_tab == 'charts' else 'tab-pane fade' }}">
             <h3>data</h3>
             <div class="container">
                 <div class="row">
                     <div class="col-sm">
-                        {% if show_wordcloud == 'True' %}
-                            <a href="/images/wordcloud.png">
-                                <img class="img-thumbnail rounded float-left" src="/images/wordcloud.png"
-                                     alt="Wordcloud" width="200" height="200">
-                            </a>
-                        {% endif %}
+
                     </div>
                     <div class="col-sm form-group">
-                        <form action="/wordcloud" method="GET">
-                            <button class="btn btn-primary" type="submit" title="generate Wordcloud">
-                                <span class="glyphicon glyphicon-export" aria-hidden="true"></span> generate Wordcloud
+                        <form action="/charts" method="GET">
+                            <button disabled class="btn btn-primary" type="submit" title="generate charts">
+                                <span class="glyphicon glyphicon-export" aria-hidden="true"></span> generate charts
                             </button>
                         </form>
                     </div>
