@@ -1,4 +1,3 @@
-import os
 import uuid
 from sqlalchemy.exc import IntegrityError
 from flask import render_template, request, redirect, url_for, send_file, send_from_directory
@@ -12,12 +11,6 @@ from flask_quiz.order import toggle_postion_in_order, sort_question_by_order_num
 from flask_quiz.replay import get_next_question_and_is_last_answer_correct
 
 auth = HTTPBasicAuth()
-
-
-@app.route('/favicon.ico')
-def favicon():
-    return send_from_directory(os.path.join(app.config['static']),
-                               'favicon.ico', mimetype='image/vnd.microsoft.icon')
 
 
 @app.route('/', methods=['GET'])
