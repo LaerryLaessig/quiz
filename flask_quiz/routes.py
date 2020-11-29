@@ -16,7 +16,7 @@ auth = HTTPBasicAuth()
 
 @app.route('/favicon.ico')
 def favicon():
-    return send_from_directory(os.path.join(app.root_path, 'static'),
+    return send_from_directory(os.path.join(app.config['static']),
                                'favicon.ico', mimetype='image/vnd.microsoft.icon')
 
 
