@@ -1,5 +1,5 @@
 import unittest
-from flask_quiz.charts import generate_chart_most_false_answered_questions
+from flask_quiz.charts import generate_chart_projection
 from flask_quiz.models import Answer, Question
 
 
@@ -11,7 +11,7 @@ class TestCharts(unittest.TestCase):
 
         questions = [Question(text='', answer='', order_number=1)]
 
-        generate_chart_most_false_answered_questions(questions, answers)
+        generate_chart_projection(questions, answers)
 
 
 if __name__ == '__main__':

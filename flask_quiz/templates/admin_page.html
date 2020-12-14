@@ -78,7 +78,8 @@
                                         </button>
                                         <button class="btn btn-danger"
                                                 data-toggle="collapse"
-                                                data-target=".multi-collapse_question_{{ question.id }}" title="reset"
+                                                data-target=".multi-collapse_question_{{ question.id }}"
+                                                title="reset"
                                                 type="reset">
                                             <span class="glyphicon glyphicon-floppy-remove" aria-hidden="true"></span>
                                         </button>
@@ -92,6 +93,7 @@
                                         {% if question.order_number > 1%}
                                             <button class="btn btn-info"
                                                     type="submit"
+                                                    title="position up"
                                                     formaction="/question/{{ question.id }}/up">
                                                 <span class="glyphicon glyphicon-arrow-up"></span>
                                             </button>
@@ -99,13 +101,15 @@
                                         {% if question.order_number < last_order_number%}
                                             <button class="btn btn-info"
                                                     type="submit"
+                                                    title="position down"
                                                     formaction="/question/{{ question.id }}/down">
                                                 <span class="glyphicon glyphicon-arrow-down"></span>
                                             </button>
                                         {% endif %}
                                         </div>
                                         <button class="btn btn-success"
-                                                type="button" title="edit"
+                                                type="button"
+                                                title="edit"
                                                 data-toggle="collapse"
                                                 data-target=".multi-collapse_question_{{ question.id }}"
                                                 aria-expanded="false"
@@ -136,7 +140,7 @@
                     </div>
                     <div class="col-sm form-group">
                         <form action="/charts" method="GET">
-                            <button disabled class="btn btn-primary" type="submit" title="generate charts">
+                            <button class="btn btn-primary" type="submit" title="generate charts">
                                 <span class="glyphicon glyphicon-export" aria-hidden="true"></span> generate charts
                             </button>
                         </form>

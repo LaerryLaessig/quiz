@@ -2,6 +2,8 @@ import uuid
 from sqlalchemy.exc import IntegrityError
 from flask import render_template, request, redirect, url_for, send_file, send_from_directory
 from flask_httpauth import HTTPBasicAuth
+
+from flask_quiz.charts import generate_chart_projection
 from flask_quiz.database import add_high_score, get_all_highscores, delete_question_by_id, add_question, \
     add_answer_to_user, delete_all_user_data, get_all_questions, update_question, update_in_order_new_order_questions, \
     get_question_by_id, get_answers_by_user
@@ -129,6 +131,7 @@ def action_delete_all_user_data():
 @app.route('/charts', methods=['GET'])
 @auth.login_required
 def charts_page():
+    generate_chart_projection()
     return redirect(url_for('admin_page',
                             active_tab='charts'))
 
