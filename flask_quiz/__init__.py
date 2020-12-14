@@ -23,5 +23,7 @@ db = SQLAlchemy(app)
 from flask_quiz import database
 from flask_quiz import models
 from flask_quiz import routes
+from flask_quiz.errors.handlers import errors
+app.register_blueprint(errors)
 
 database.create_database()

@@ -1,6 +1,6 @@
 import uuid
 from sqlalchemy.exc import IntegrityError
-from flask import render_template, request, redirect, url_for, send_file, send_from_directory
+from flask import render_template, request, redirect, url_for
 from flask_httpauth import HTTPBasicAuth
 from flask_quiz.database import add_high_score, get_all_highscores, delete_question_by_id, add_question, \
     add_answer_to_user, delete_all_user_data, get_all_questions, update_question, update_in_order_new_order_questions, \
@@ -17,7 +17,8 @@ auth = HTTPBasicAuth()
 def question_page():
     user_id = uuid.uuid4() if request.args.get('id') is None else request.args.get('id')
     nxt_question, is_last_answer_correct = get_next_question_and_is_last_answer_correct(get_all_questions(),
-                                                                                        get_answers_by_user(str(user_id)))
+                                                                                        get_answers_by_user(
+                                                                                            str(user_id)))
     if nxt_question is not None:
         return render_template('question_page.html',
                                question=nxt_question,
@@ -131,11 +132,6 @@ def action_delete_all_user_data():
 def charts_page():
     return redirect(url_for('admin_page',
                             active_tab='charts'))
-
-
-@app.errorhandler(500)
-def internal_error(error):
-    return redirect(url_for('question_page'))
 
 
 @app.route('/health')
