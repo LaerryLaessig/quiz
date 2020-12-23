@@ -19,4 +19,3 @@ echo "deactivate venv"
 deactivate
 
 echo "installation complete"
-
