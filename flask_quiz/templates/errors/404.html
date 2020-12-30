@@ -1,8 +1,7 @@
-{% extends "error_layout.html" %}
+{% extends "errors/error_layout.html" %}
 {% block content %}
     <div class="content-section">
         <h1>Oh. Page not found. (404)</h1>
         <p>That page does not exist. Please try a different location</p>
     </div>
-    <img src="{{ url_for('static', filename='404.png' }}">
 {% endblock %}
