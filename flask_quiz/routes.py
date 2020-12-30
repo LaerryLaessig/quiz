@@ -75,8 +75,8 @@ def admin_page():
 @app.route('/question', methods=['POST'])
 @auth.login_required
 def put_question():
-    add_question(question_text=request.form.get('question'),
-                 answer_text=request.form['answer'],
+    add_question(question_text=request.form.get('question').strip(),
+                 answer_text=request.form['answer'].strip(),
                  order_number=get_nxt_question_order_number())
     return redirect(url_for('admin_page',
                             active_tab='question'))
@@ -85,7 +85,7 @@ def put_question():
 @app.route('/question/<int:question_id>', methods=['POST'])
 @auth.login_required
 def edit_question(question_id=0):
-    update_question(question_id, request.form['question'], request.form['answer'])
+    update_question(question_id, request.form['question'].strip(), request.form['answer'].strip())
     return redirect(url_for('admin_page',
                             active_tab='question') + '#question_{}'.format(question_id))
 
